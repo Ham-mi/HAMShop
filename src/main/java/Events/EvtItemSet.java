@@ -1,6 +1,5 @@
 package Events;
 
-import org.bukkit.entity.HumanEntity;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryCloseEvent;
@@ -21,13 +20,10 @@ public class EvtItemSet implements Listener{
 			if(!shop.isExist()) return;
 			
 			int i = 0;
-			byte b;
-			int j;
 			ItemStack[] arrayOfItemStack= inv.getContents();
-			for(j= arrayOfItemStack.length , b=0 ; b<j; b++) {
-				ItemStack item = arrayOfItemStack[b];
+			for(i=0 ; i<arrayOfItemStack.length; i++) {
+				ItemStack item = arrayOfItemStack[i];
 				shop.get().set("item."+i,item);
-				i++;
 			}
 			shop.save();
 			event.getPlayer().sendMessage(String.valueOf(Main.HAMShop)+" " + title + " 상점을 설정했습니다.");

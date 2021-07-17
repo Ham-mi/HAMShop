@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.bukkit.Bukkit;
-import org.bukkit.entity.HumanEntity;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -54,6 +54,37 @@ public class EvtOpenShop implements Listener{
 				if(!event.getClick().isShiftClick() && p_amount > amount) p_amount = amount;
 				double sell = ((Integer)sell_price.get(slot)).doubleValue() / amount * p_amount;
 				ItemStack last_item = item[slot];
+				last_item.setAmount(p_amount);
+				player.getInventory().removeItem(new ItemStack[] {last_item});
+				eco.depositPlayer((OfflinePlayer)player, sell);
+				player.sendMessage(String.valueOf(Main.HAMShop)+ "아이템을 " + eco.format(sell) + " 에 성공적으로 판매했습니다.");
+				
+			}else if(event.getClick().isLeftClick()) {
+				ItemStack last_item;
+				List<Integer> buy_price = shop.get().getIntegerList("buy-price");
+				if(((Integer)buy_price.get(slot)).equals(Integer.valueOf(0))) return;
+				double buy = ((Integer)buy_price.get(slot)).doubleValue();
+				
+				if (event.getClick().isShiftClick()) {
+					int amount = item[slot].getAmount();
+					buy = buy / amount * 64.0D;
+					last_item = item[slot];
+					last_item.setAmount(64);
+				}else {
+					last_item = item[slot];
+				}
+				if(!isCanHold(player,  last_item.clone())) {
+					player.sendMessage(String.valueOf(Main.HAMShop)+"인벤토리가 가득차서 아이템을 구매할 수 없습니다.");
+					return;
+				}
+				if(eco.getBalance((OfflinePlayer)player) < buy) {
+					player.sendMessage(String.valueOf(Main.HAMShop)+"돈이 부족합니다.");
+					return;
+				}
+				player.getInventory().addItem(new ItemStack[] {last_item});
+				eco.withdrawPlayer((OfflinePlayer)player, buy);
+				player.sendMessage(String.valueOf(Main.HAMShop)+" 아이템을 " + eco.format(buy) + " 에 성공적으로 구매했습니다.");
+				
 				
 			}
 		}
