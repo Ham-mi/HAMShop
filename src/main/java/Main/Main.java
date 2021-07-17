@@ -43,4 +43,12 @@ public class Main extends JavaPlugin{
 		econ = (Economy)rsp.getProvider();
 		return (econ!=null) ;
 	}
+	
+	public static Economy getEconomy() {
+		return econ;
+	}
+	
+	public static Main getInstance() {
+		return instance;
+	}
 }

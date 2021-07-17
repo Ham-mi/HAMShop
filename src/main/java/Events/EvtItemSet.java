@@ -12,10 +12,10 @@ import Main.ShopData;
 public class EvtItemSet implements Listener{
 	@EventHandler
 	public void OnInventoryClose(InventoryCloseEvent event) {
-		if(event.getInventory().getViewers().isEmpty()) return;
-		HumanEntity entity = (HumanEntity)event.getInventory().getViewers().get(0);
-		if(entity.getOpenInventory().getTitle().startsWith("Shop.Set-")) {
-			String title = entity.getOpenInventory().getTitle().replace("Shop.Set-", "");
+//		if(event.getInventory().getViewers().isEmpty()) return;
+//		HumanEntity entity = (HumanEntity)event.getInventory().getViewers().get(0);
+		if(event.getInventory().getTitle().startsWith("Shop.Set-")) {
+			String title = event.getInventory().getTitle().replace("Shop.Set-", "");
 			Inventory inv = event.getInventory();
 			ShopData shop = new ShopData(title);
 			if(!shop.isExist()) return;
