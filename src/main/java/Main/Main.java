@@ -1,5 +1,7 @@
 package Main;
 
+import java.util.HashMap;
+
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -7,6 +9,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 import net.milkbowl.vault.economy.Economy;
 
 public class Main extends JavaPlugin{
+	public static HashMap<String,Integer> HamData = new HashMap();
 	
 	public static String HAMShop = "[ Shop ]";
 	
