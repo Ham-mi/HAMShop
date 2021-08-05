@@ -1,8 +1,9 @@
 name: HAMShop
-version: 1.0.0
+version: 1.0.1
 author : hammi
-main: Main.ShopMain
-depend:[Vault]
-command:
-	상점:
-		description: SuiShop 상점 명령어.
+main: Main.Main
+depend: [Vault]
+loadbefore : [Vault]
+commands:
+ 상점:
+  description: SuiShop 상점 명령어.
